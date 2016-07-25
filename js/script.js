@@ -8,7 +8,7 @@ $(document).ready(function() {
 
         var city = $('#city').val().capitalize();
 
-        if (city == '') {
+        if (city === '') {
             $('#weather').html('<h2>Error</h2>');
         } else {
           // FINISH:30 change this into font awesome spinner icon
@@ -56,8 +56,8 @@ $(document).ready(function() {
 								// FINISH:40 create flickr API req
 								// https://api.flickr.com/services/rest/?method=flickr.photos.search
 								flickr = $.getJSON('https://api.flickr.com/services/rest/?method=flickr.photos.search' +
-								'&api_key=60ca023377080d65b7a78f0f617957bc&tags=' + weatherCondition + '&text='
-								+ weatherCondition + '%2C+' + city + '&extras=url_l%2C+owner_name' +
+								'&api_key=60ca023377080d65b7a78f0f617957bc&tags=' + weatherCondition + '&text='+
+                weatherCondition + '%2C+' + city + '&extras=url_l%2C+owner_name' +
 								'&format=json&nojsoncallback=1',
 								function(data) {
 									function getRandom() {
@@ -81,8 +81,8 @@ $(document).ready(function() {
                         var photoTitle = photo.title;
                         var ownerId = photo.owner;
                         var photoId = photo.id;
-                        document.querySelector('body').style.backgroundImage = 'url('
-                        + "'" + photoUrl + "'" + ')';
+                        document.querySelector('body').style.backgroundImage = 'url('+
+                         "'" + photoUrl + "'" + ')';
                         document.querySelector('#photoInfo').innerHTML = '<p>' +
                         photoTitle + ' by ' + '<a href=' + '"' +
                         'https://www.flickr.com/photos/' + ownerId +
@@ -97,8 +97,8 @@ $(document).ready(function() {
                     var photoTitle = photo.title;
                     var ownerId = photo.owner;
                     var photoId = photo.id;
-										document.querySelector('body').style.backgroundImage = 'url('
-                    + "'" + photoUrl + "'" + ')';
+										document.querySelector('body').style.backgroundImage = 'url('+
+                     "'" + photoUrl + "'" + ')';
                     document.querySelector('#photoInfo').innerHTML = '<p>' +
                     photoTitle + ' by ' + '<a href=' + '"' +
                     'https://www.flickr.com/photos/' + ownerId +
@@ -114,7 +114,7 @@ $(document).ready(function() {
 
 
 
-    } //end of getWeather function
+    }; //end of getWeather function
     // TODO: function to check if mouse hover to content
     $('#content').mouseenter(function(){
       console.log('hovered');
