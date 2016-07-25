@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Bootstrap -->
+	<link href="bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/weather-icons.min.css">
+	<link rel="stylesheet" href="css/weather-icons-wind.min.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+
+	<title>YourWeather App</title>
+
+</head>
+
+<body>
+	<!-- #TODO:50 when mouse hover the content div then focus and dim the light of the outside of this div  -->
+<div id="content-parent">
+	<div id=siteNameContainer class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div id='siteNameParent' class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<h1 id='siteName'></h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id='content' class="container">
+	<!-- #FINISH:20 insert weather icon according to weather condition  -->
+		<div class="row">
+			<section class="col-lg-12">
+				<div id="weather-icon-parent">
+					<i id='weather-icon' class='wi wi-alien' aria-hidden="true">
+
+					</i>
+				</div>
+			</section>
+		</div>
+
+		<div class="row">
+			<section class="col-lg-12">
+				<h1 id='title'>YourWeather App</h1>
+			</section>
+		</div>
+
+		<div class="row">
+			<section class="col-lg-12">
+				<input id='city' type="text" name="q" autocomplete="off" placeholder="Hi, Where do you live at?">
+			</section>
+		</div>
+
+
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div id=name>
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div id=weather>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div id="degree">
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div id="photoInfoParent">
+						<!-- #FINISH:60 insert photo information(user and title) -->
+						<div id='photoInfo'>
+
+						</div>
+						<p>made with <i class='fa fa-heart'></i> by <a href="https://twitter.com/bhirmbani">@bhirmbani</a></p>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<div id="footer">
+				<!-- #TODO:0 add footer to provide info for API info, about me info, photo info -->
+				<!-- #TODO:40 insert open weather and flickr as a data provider -->
+
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+
+
+
+
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="bootstrap.min.js"></script>
+	<script src="js/script.js" type="text/javascript"></script>
+</body>
+
+</html>
