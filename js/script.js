@@ -18,10 +18,10 @@ $(document).ready(function() {
 
 
 				// open weather API req
-        weather = $.getJSON('http://api.openweathermap.org/data/2.5/weather?q=' +
+        var weather = $.getJSON('http://api.openweathermap.org/data/2.5/weather?q=' +
             city + '&units=metric' + '&APPID=e2f5c0547e82a37cc4d2cc103e32e8a9',
             function(data) {
-                weather = data;
+
                 var country = data.sys.country;
                 document.getElementById('title').textContent = city + ', ' + country;
                 String.prototype.capitalize = function(){
@@ -55,7 +55,7 @@ $(document).ready(function() {
 								var weatherCondition = data.weather[0].main;
 								// FINISH:40 create flickr API req
 								// https://api.flickr.com/services/rest/?method=flickr.photos.search
-								flickr = $.getJSON('https://api.flickr.com/services/rest/?method=flickr.photos.search' +
+								var flickr = $.getJSON('https://api.flickr.com/services/rest/?method=flickr.photos.search' +
 								'&api_key=60ca023377080d65b7a78f0f617957bc&tags=' + weatherCondition + '&text='+
                 weatherCondition + '%2C+' + city + '&extras=url_l%2C+owner_name' +
 								'&format=json&nojsoncallback=1',
@@ -67,11 +67,11 @@ $(document).ready(function() {
                     // TODO:10 change using shutterstock API https://developers.shutterstock.com/guides/getting-started
                     // if amount of photo equal or less than 2
 									if(data.photos.total <= 2) {
-										flickr = $.getJSON('https://api.flickr.com/services/rest/?method=flickr.photos.search' +
+										var flickr = $.getJSON('https://api.flickr.com/services/rest/?method=flickr.photos.search' +
 										'&api_key=60ca023377080d65b7a78f0f617957bc&text=' + weatherCondition +
 										'&extras=url_l%2C+owner_name' +
 										'&format=json&nojsoncallback=1', function(data){
-											flickr = data;
+
 											function getRandom() {
 										 			return Math.floor(Math.random() * data.photos.photo.length);
 												}
@@ -90,7 +90,7 @@ $(document).ready(function() {
                         document.querySelector('#siteName').textContent = 'YourWeather App';
 										});
 									} else {
-										flickr = data;
+										
                     var photo = data.photos.photo[getRandom()];
                     var photoUrl = photo.url_l;
                     var photoOwner = photo.ownername;
