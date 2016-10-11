@@ -1,123 +1,70 @@
 <!DOCTYPE html>
 <html>
-
 <head>
+	<title>LocalWeather App</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Bootstrap -->
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/bootstrap-toggle.min.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/weather-icons.min.css">
 	<link rel="stylesheet" href="css/weather-icons-wind.min.css">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
-
-	<title>YourWeather App</title>
-
+	<link rel="stylesheet" href="css/animate.css">
 </head>
-
 <body>
-	<!-- #TODO:50 when mouse hover the content div then focus and dim the light of the outside of this div  -->
-<div id="content-parent">
-	<div id=siteNameContainer class="container">
-		<div class="row">
+	<!-- THE COVER -->
+	<div class="cover-img container-fluid">
+	<!-- <div class="header-parent">
+		<h1 class="header-headline-text">LocalWeather</h1>
+		<p class="header-paragraph-text">The Simplest Way to Look for Weather Information</p>
+	</div> -->
+		<div class="cover-text">
+			<div class="cover-text-child">
+				<h1 class="cover-headline-text">LocalWeather</h1>
+				<p class="cover-paragraph-text">The Simplest Way to Look for <span>Weather</span> Information</p>
+				<p class="cover-desc-text"></p>
+			</div>
+			
+			<div id="geoToggle">
+				<input checked id='c1' data-toggle="toggle" data-on="Near me" data-off="Discover" data-onstyle="success" data-size="small" data-offstyle="primary" type="checkbox">
+			</div>
+			<div class="cover-input-parent">
+				<div class="cover-input">
+				<input id='input' type="text required" autocomplete="off" class="userInput" placeholder="type your city" name="q">
+			</div>
+			<button class="btn-input btn btn-primary">Submit</button>
+			</div>
+		</div>
+	</div>
+	<!-- THE INFO -->
+	<div class="info-parent container-fluid">
+		
 			<div class="col-lg-12">
-				<div id='siteNameParent' class="container">
-					<div class="row">
-						<div class="col-lg-12">
-							<h1 id='siteName'></h1>
+					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 info-column info-desc">
+						<div class="info-desc-child">
+							<h1>Location</h1>
+							<p>Location description</p>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div id='content' class="container">
-	<!-- #FINISH:20 insert weather icon according to weather condition  -->
-		<div class="row">
-			<section class="col-lg-12">
-				<div id="weather-icon-parent">
-					<i id='weather-icon' class='wi wi-alien' aria-hidden="true">
-
-					</i>
-				</div>
-			</section>
-		</div>
-
-		<div class="row">
-			<section class="col-lg-12">
-				<h1 id='title'>YourWeather App</h1>
-			</section>
-		</div>
-
-		<div class="row">
-			<section class="col-lg-12">
-				<input id='city' type="text" name="q" autocomplete="off" placeholder="Hi, Where do you live at?">
-			</section>
-		</div>
-
-
-
-		<div class="row">
-			<div class="col-lg-12">
-				<div id=name>
-
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-12">
-				<div id=weather>
-
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-lg-12">
-				<div id="degree">
-
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-lg-12">
-				<div id="photoInfoParent">
-						<!-- #FINISH:60 insert photo information(user and title) -->
-						<div id='photoInfo'>
-
+					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 info-column info-weather-icon">
+						<div class="info-weather-child">
+							<i class="wi wi-sunrise"></i>
+							<p>Sunrise</p>
 						</div>
-						<p>made with <i class='fa fa-heart'></i> by <a href="https://twitter.com/bhirmbani">@bhirmbani</a></p>
-				</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 info-column info-temp">
+						<div class="info-temp-child">
+							<h1>27° C</h1>
+						</div>
+					</div>
 			</div>
-		</div>
-
-
-	</div>
-	<div class="row">
-		<div class="col-lg-12">
-			<div id="footer">
-				<!-- #TODO:0 add footer to provide info for API info, about me info, photo info -->
-				<!-- #TODO:40 insert open weather and flickr as a data provider -->
-
-			</div>
-		</div>
 	</div>
 
-</div>
-
-
-
-
-
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="js/script.js"></script>
-
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootstrap-toggle.min.js"></script>
+	<script src="js/index.js"></script>
 </body>
-
 </html>
