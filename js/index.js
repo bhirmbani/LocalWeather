@@ -13,7 +13,7 @@ $(document).ready(function (){
     degree: null,
     // ============ OPEN WEATHER CONFIGURATION ============ //
     // =========== weather + userlocation + measurement + weatherKey ============ //
-    weather: 'http://api.openweathermap.org/data/2.5/weather?q=',
+    weather: 'https://api.openweathermap.org/data/2.5/weather?q=',
     measurement: '&units=metric',
     weatherKey: '&APPID=e2f5c0547e82a37cc4d2cc103e32e8a9'
   };
