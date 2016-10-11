@@ -82,18 +82,34 @@ $(document).ready(function (){
       // store user location and capitalize it
       var userLocation =  Func.capitalize(Variable.userInput.val());
       // get JSON from open weather API
-      $.getJSON(Variable.weather + userLocation + Variable.measurement + Variable.weatherKey)
-      .done(function (weatherData){
-        console.log('input value from getUserInput function: ' + userLocation);
-        Variable.country = weatherData.sys.country;
-        Variable.degree = weatherData.main.temp;
-        Variable.description  = Func.capitalize(weatherData.weather[0].description);
-        console.log('country data: ' + Variable.country + ', description data: ' + Variable.description + ', degree in celcius: ' + Variable.degree + '°C.');
-        Variable.initText.html('<h1 class="cover-headline-text animated zoomIn">'+ userLocation +'</h1>');
+      $.ajax({
+        dataType: 'jsonp',
+        data: 'id=10',
+        url: Variable.weather + userLocation + Variable.measurement + Variable.weatherKey,
+        success: function (weatherData) {
+          console.log('input value from getUserInput function: ' + userLocation);
+          Variable.country = weatherData.sys.country;
+          Variable.degree = weatherData.main.temp;
+          Variable.description  = Func.capitalize(weatherData.weather[0].description);
+          console.log('country data: ' + Variable.country + ', description data: ' + Variable.description + ', degree in celcius: ' + Variable.degree + '°C.');
+          Variable.initText.html('<h1 class="cover-headline-text animated zoomIn">'+ userLocation +'</h1>');
         // Variable.headlineText.css('font-size', '2em');
-        Variable.initText.append('<p class="cover-paragraph-text animated zoomIn">'+ Variable.degree + '°C' + '</p>');
-        Variable.initText.append('<p class="cover-paragraph-text animated zoomIn">'+ Variable.description +'</p>');
-      });
+          Variable.initText.append('<p class="cover-paragraph-text animated zoomIn">'+ Variable.degree + '°C' + '</p>');
+          Variable.initText.append('<p class="cover-paragraph-text animated zoomIn">'+ Variable.description +'</p>');
+        }
+});
+      // $.getJSON(Variable.weather + userLocation + Variable.measurement + Variable.weatherKey)
+      // .done(function (weatherData){
+      //   console.log('input value from getUserInput function: ' + userLocation);
+      //   Variable.country = weatherData.sys.country;
+      //   Variable.degree = weatherData.main.temp;
+      //   Variable.description  = Func.capitalize(weatherData.weather[0].description);
+      //   console.log('country data: ' + Variable.country + ', description data: ' + Variable.description + ', degree in celcius: ' + Variable.degree + '°C.');
+      //   Variable.initText.html('<h1 class="cover-headline-text animated zoomIn">'+ userLocation +'</h1>');
+      //   // Variable.headlineText.css('font-size', '2em');
+      //   Variable.initText.append('<p class="cover-paragraph-text animated zoomIn">'+ Variable.degree + '°C' + '</p>');
+      //   Variable.initText.append('<p class="cover-paragraph-text animated zoomIn">'+ Variable.description +'</p>');
+      // });
     },
     processInputWeather: function() {
      
