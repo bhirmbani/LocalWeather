@@ -11,11 +11,20 @@ $(document).ready(function (){
     country: null,
     description: null,
     degree: null,
-    // ============ OPEN WEATHER CONFIGURATION ============ //
-    // =========== weather + userlocation + measurement + weatherKey ============ //
-    weather: 'http://api.openweathermap.org/data/2.5/weather?q=',
-    measurement: '&units=metric',
-    weatherKey: '&APPID=e2f5c0547e82a37cc4d2cc103e32e8a9'
+    // ============ DARK SKY APIs CONFIGURATION ============ //
+    // =========== url + key + lat + comma + long + language + measurement ============ //
+    url: 'https://api.darksky.net/forecast/',
+    key: 'f9f004ed4be8589d22e072ce2fc3effb/',
+    lat: null,
+    comma: ',',
+    long: null,
+    language: '?lang=id',
+    measurement: '&units=si',
+    // ============ Google Geocoding APIs CONFIG ============ //
+    // =========== geocodingUrl + address + userLocation + geoKey ============ //
+    geocodingUrl: 'https://maps.googleapis.com/maps/api/geocode/json?&',
+    address: 'address=',
+    geoKey: '&key=AIzaSyAvfVxPoTtNcLydCKxvJmwqs2A-ezEeaVY',
   };
 
   var Func = {
@@ -78,43 +87,30 @@ $(document).ready(function (){
     getRandomPhoto: function (num) {
         return Math.floor(Math.random() * num);
       },
+    // google geocoding
     getUserInputWeather: function() {
-      // store user location and capitalize it
-      var userLocation =  Func.capitalize(Variable.userInput.val());
-      // get JSON from open weather API
-      $.ajax({
-        dataType: 'jsonp',
-        data: 'id=10',
-        url: Variable.weather + userLocation + Variable.measurement + Variable.weatherKey,
-        success: function (weatherData) {
-          console.log('input value from getUserInput function: ' + userLocation);
-          Variable.country = weatherData.sys.country;
-          Variable.degree = weatherData.main.temp;
-          Variable.description  = Func.capitalize(weatherData.weather[0].description);
-          console.log('country data: ' + Variable.country + ', description data: ' + Variable.description + ', degree in celcius: ' + Variable.degree + '°C.');
-          Variable.initText.html('<h1 class="cover-headline-text animated zoomIn">'+ userLocation +'</h1>');
-        // Variable.headlineText.css('font-size', '2em');
-          Variable.initText.append('<p class="cover-paragraph-text animated zoomIn">'+ Variable.degree + '°C' + '</p>');
-          Variable.initText.append('<p class="cover-paragraph-text animated zoomIn">'+ Variable.description +'</p>');
-        }
-});
-      // $.getJSON(Variable.weather + userLocation + Variable.measurement + Variable.weatherKey)
-      // .done(function (weatherData){
-      //   console.log('input value from getUserInput function: ' + userLocation);
-      //   Variable.country = weatherData.sys.country;
-      //   Variable.degree = weatherData.main.temp;
-      //   Variable.description  = Func.capitalize(weatherData.weather[0].description);
-      //   console.log('country data: ' + Variable.country + ', description data: ' + Variable.description + ', degree in celcius: ' + Variable.degree + '°C.');
-      //   Variable.initText.html('<h1 class="cover-headline-text animated zoomIn">'+ userLocation +'</h1>');
-      //   // Variable.headlineText.css('font-size', '2em');
-      //   Variable.initText.append('<p class="cover-paragraph-text animated zoomIn">'+ Variable.degree + '°C' + '</p>');
-      //   Variable.initText.append('<p class="cover-paragraph-text animated zoomIn">'+ Variable.description +'</p>');
-      // });
-    },
-    processInputWeather: function() {
-     
-    },
+      var userLocation = Func.capitalize(Variable.userInput.val());
+      $.getJSON(Variable.geocodingUrl + Variable.address + userLocation + Variable.geoKey, function(geoData) {
+        Variable.lat = geoData.results[0].geometry.location.lat;
+        Variable.long = geoData.results[0].geometry.location.lng;
+        console.log(Variable.lat + ' ' + Variable.long);
+        $.ajax({
+          url: Variable.url + Variable.key + Variable.lat + Variable.comma + Variable.long + Variable.language + Variable.measurement,
+          dataType: 'JSONP',
+          jsonpCallback: 'callbackFnc',
+          type: 'GET',
+          asnyc: false,
+          crossDomain: true,
+          success: function (darkskyData) { 
+            console.log(darkskyData.currently.summary);
+          },
+          failure: function () { },
+          complete: function () { }
+        });
+      });
+    }
   } // end of Func
+  
   // set default to off
   $('#c1').bootstrapToggle('off');
     // check for Geolocation support
