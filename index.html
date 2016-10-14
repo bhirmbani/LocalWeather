@@ -16,27 +16,30 @@
 <body>
 	<!-- THE COVER -->
 	<div class="cover-img container-fluid">
-	<!-- <div class="header-parent">
-		<h1 class="header-headline-text">LocalWeather</h1>
-		<p class="header-paragraph-text">The Simplest Way to Look for Weather Information</p>
-	</div> -->
-		<div class="cover-text">
-			<div class="cover-text-child">
-				<h1 class="cover-headline-text">LocalWeather</h1>
-				<p class="cover-paragraph-text">The Simplest Way to Look for <span>Weather</span> Information</p>
-				<p class="cover-desc-text"></p>
-			</div>
-			
-			<div id="geoToggle">
-				<input checked id='c1' data-toggle="toggle" data-on="Near me" data-off="Discover" data-onstyle="success" data-size="small" data-offstyle="primary" type="checkbox">
-			</div>
-			<div class="cover-input-parent">
-				<div class="cover-input">
-				<input id='input' type="text required" autocomplete="off" class="userInput" placeholder="type your city" name="q">
-			</div>
-			<button class="btn-input btn btn-primary">Submit</button>
+		<div class="cover-img-child">
+			<!-- <div class="header-parent">
+				<h1 class="header-headline-text">LocalWeather</h1>
+				<p class="header-paragraph-text">The Simplest Way to Look for Weather Information</p>
+			</div> -->
+			<div class="cover-text">
+				<div class="cover-text-child">
+					<h1 class="cover-headline-text">LocalWeather</h1>
+					<p class="cover-paragraph-text">The Simplest Way to Look for <span>Weather</span> Information</p>
+					<p class="cover-desc-text"></p>
+				</div>
+				
+				<div id="geoToggle">
+					<input checked id='c1' data-toggle="toggle" data-on="Near me" data-off="Discover" data-onstyle="success" data-size="small" data-offstyle="primary" type="checkbox">
+				</div>
+				<div class="cover-input-parent">
+					<div class="cover-input">
+					<input id='input' type="text required" autocomplete="off" class="userInput" placeholder="type your location" name="q">
+				</div>
+				<button class="btn-input btn btn-primary">Submit</button>
+				</div>
 			</div>
 		</div>
+	
 	</div>
 	<!-- THE INFO -->
 	<div class="info-parent container-fluid">
@@ -61,7 +64,22 @@
 					</div>
 			</div>
 	</div>
+	<!-- FOOTER -->
+		<div class="footer-parent">
+			<div class="footer">
+				<p>Created with 
+				<i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 
+				by <a href="https://twitter.com/bhirmbani">Bhir.</a> Powered by 
+				<a href="https://darksky.net/poweredby/">Dark Sky.</a>
+				Photos provided by <a href="https://www.pexels.com"><img class="pexels" src="images/pexels-logo-black.png" alt=""> </a>
+
+				</p>
+			</div>
+		</div>
+	</div>
 	<script src="js/skyconsOri.js"></script>
+	<script src="js/quantize.js"></script>
+	<script src="js/color-thief.js"></script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/bootstrap-toggle.min.js"></script>

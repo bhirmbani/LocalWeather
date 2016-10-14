@@ -1,7 +1,21 @@
 .cover-img {
-    background: url(../images/front.jpg) no-repeat center fixed;
+    background: no-repeat center fixed;
     background-size: cover;
-    height: 100vh;
+    height: 95vh;
+    transition: all 0.4s;
+}
+
+.footer-parent {
+    height: 5vh;
+}
+
+.footer {
+    text-align: center;
+}
+
+.pexels {
+    width: 60px;
+    height: 15px;
 }
 
 .cover-text {
@@ -13,6 +27,9 @@
    color: #00E0FF;
    opacity: 0.5;
    transition: font-size 0.5s;
+   background: black;
+   padding: 20px;
+   border-radius: 20px;
 }
 
 .cover-text-child {

@@ -79,7 +79,7 @@ $(document).ready(function (){
       $('.cover-input-parent').addClass('animated fadeInDown');      
     },
     inputNormal: function() {
-      Variable.userInput.attr({placeholder:'type your city', class:'userInput'});
+      Variable.userInput.attr({placeholder:'type your location', class:'userInput'});
       Variable.userInput.val('');
     },
     inputError: function() {
@@ -147,7 +147,8 @@ $(document).ready(function (){
                 var randomPhoto = Func.getRandomPhoto(pexelsData.photos.length);
                 console.log('total photo(s) available for this weather condition: ' + pexelsData.total_results);
                 var photoUrl = pexelsData.photos[randomPhoto].src.landscape;
-                $('.cover-img').css({background: 'url(' + photoUrl +  ') no-repeat center fixed', backgroundSize: 'cover', height: '100vh'})
+                console.log(photoUrl);
+                $('.cover-img').css({background: 'url(' + photoUrl +  ') no-repeat center fixed', backgroundSize: 'cover', height: '95vh'})
                 console.log(this.url);
               },
             });
@@ -165,7 +166,31 @@ $(document).ready(function (){
       Variable.userInput.attr({placeholder:'type here to check another location', class:'userInputAfter'});
     },
   } // end of Func
-  
+  // set background img
+
+  initBackground();
+  function initBackground() {
+    var value = ['beach', 'sunset', 'rain', 'plane', 'coffee', 'woman', 'space'];
+    var random = Func.getRandomPhoto(value.length);
+    var randomValue = value[random];
+    $.ajax({
+    url: 'https://api.pexels.com/v1/search?query=' + randomValue,
+    beforeSend: function (req){
+      req.setRequestHeader('Authorization', '563492ad6f9170000100000143de09da7d704c1d67462c54f4d9a25e');
+    },
+      dataType: 'JSON', 
+      asnyc: false,
+      crossDomain: true,
+      success: function(data) {
+        var randomPhoto = Func.getRandomPhoto(data.photos.length);
+        console.log('number of photo for: ' + randomValue + ' is: ' + data.photos.length);
+        var photoUrl = data.photos[randomPhoto].src.landscape;
+        $('.cover-img').css({background: 'url(' + photoUrl + ') no-repeat center fixed', backgroundSize: 'cover', height: '95vh' });
+        $('.cover-img').attr('class', 'animated slideInDown cover-img container-fluid');
+
+      },
+  });
+  };
   // set default to off
   $('#c1').bootstrapToggle('off');
     // check for Geolocation support
