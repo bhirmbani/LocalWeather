@@ -23,17 +23,30 @@
 .cover-headline-text {
     font-family: lobster;
     margin-bottom: 0;
+    margin-top: 0;
     font-size: 2.5em;
 }
 
+.cover-location-text {
+    font-family: lobster;
+    margin-bottom: 0;
+    margin-top: 0;
+    font-size: 2em;
+}
+
 .cover-paragraph-text {
-    font-family: Open Sans;
-    font-size: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    margin: 0;
 }
 
 .cover-input-parent {
     transition: visibility .4s;
     padding-top: 10px;
+}
+
+.cover-shortSum-text {
+
 }
 
 .info-parent {
@@ -51,7 +64,7 @@
     transition: border 0.3s;
     text-align: center;
     border-bottom: 2px solid #d9534f;
-    width: 10em;
+    width: 9em;
 }
 
 .userInputErr:focus {
@@ -117,7 +130,41 @@ div.info-parent.container-fluid div.col-lg-12 {
     text-align: center;
     border-bottom: solid 2px #E8FFE8;
     width: 8em;
+}
 
+.userInputAfter {
+    background: none;
+    border: 0;
+    outline: 0;
+    transition: border 0.3s;
+    text-align: center;
+    border-bottom: solid 2px #E8FFE8;
+    width: 13em;
+}
+
+.userInputAfter:focus {
+    border-bottom: solid 2px #00E0FF;
+    
+}
+
+.userInputAfter:focus::-webkit-input-placeholder {
+    color: transparent;
+}
+
+.userInputAfter:focus::-moz-placeholder {
+    color: transparent;
+}
+
+.userInputAfter::-moz-placeholder {
+    color: #A6FFF2;
+    font-size: 1em;
+    font-family: Open Sans;
+}
+
+.userInputAfter::-webkit-input-placeholder {
+    color: #A6FFF2;
+    font-size: 1em;
+    font-family: Open Sans;
 }
 
 .userInput:focus {
@@ -200,7 +247,20 @@ button.btn-input.btn.btn-primary:active {
     color: #E8FFE8;
 }
 
+.flag {
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+    margin: 0;
+}
 
+.flag img {
+    width: 100%;
+}
+
+.changeUnit {
+    cursor: pointer;
+}
 
 
 

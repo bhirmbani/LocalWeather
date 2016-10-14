@@ -8,17 +8,20 @@ $(document).ready(function (){
     tempText: $('.cover-paragraph-text'),
     descText: $('.cover-desc-text'),
     startPos: null,
-    country: null,
+    countryCode: null,
     description: null,
-    degree: null,
+    userLocation: null,
+    countryFlag: 'https://cdn.rawgit.com/hjnilsson/country-flags/master/svg/',
+    shortSum: null,
     // ============ DARK SKY APIs CONFIGURATION ============ //
-    // =========== url + key + lat + comma + long + language + measurement ============ //
+    // =========== url + key + lat + comma + long + languageId + measurement ============ //
     url: 'https://api.darksky.net/forecast/',
     key: 'f9f004ed4be8589d22e072ce2fc3effb/',
     lat: null,
     comma: ',',
     long: null,
-    language: '?lang=id',
+    q: '?',
+    languageId: 'lang=id',
     measurement: '&units=si',
     // ============ Google Geocoding APIs CONFIG ============ //
     // =========== geocodingUrl + address + userLocation + geoKey ============ //
@@ -85,30 +88,82 @@ $(document).ready(function (){
     },
     // getRandomPhoto
     getRandomPhoto: function (num) {
-        return Math.floor(Math.random() * num);
+      return Math.floor(Math.random() * num);
       },
+
     // google geocoding
     getUserInputWeather: function() {
-      var userLocation = Func.capitalize(Variable.userInput.val());
-      $.getJSON(Variable.geocodingUrl + Variable.address + userLocation + Variable.geoKey, function(geoData) {
-        Variable.lat = geoData.results[0].geometry.location.lat;
+      Variable.userLocation = Func.capitalize(Variable.userInput.val());
+      $.getJSON(Variable.geocodingUrl + Variable.address + Variable.userLocation + Variable.geoKey, function(geoData) {
+        if(geoData.status == "ZERO_RESULTS") {
+          Variable.initText.html('<h1 class="cover-headline-text animated zoomIn">' + 'Your input: ' + Variable.userLocation + '</h1>');
+          Variable.initText.append("<p class='cover-paragraph-text animated zoomIn'>This location doesn't exist. Please try again.</p>");
+        } else {
+          Variable.lat = geoData.results[0].geometry.location.lat;
         Variable.long = geoData.results[0].geometry.location.lng;
+        var countryCodeInit = geoData.results[0].address_components.slice(-1)[0].short_name;
+        // return true if INT (check if country code from google APIs is the last element on the array)
+        if(!isNaN(countryCodeInit) === true) {
+          console.log('is countryCode a number? ' + !isNaN(countryCodeInit));
+          Variable.countryCode = geoData.results[0].address_components.slice(-2)[0].short_name.toLowerCase();
+        } else {
+          console.log('is countryCode a number? ' + !isNaN(countryCodeInit));
+          Variable.countryCode = countryCodeInit.toLowerCase();
+        }
+        
         console.log(Variable.lat + ' ' + Variable.long);
+        // dark sky API
         $.ajax({
-          url: Variable.url + Variable.key + Variable.lat + Variable.comma + Variable.long + Variable.language + Variable.measurement,
+          url: Variable.url + Variable.key + Variable.lat + Variable.comma + Variable.long + Variable.q + Variable.measurement,
           dataType: 'JSONP',
           jsonpCallback: 'callbackFnc',
           type: 'GET',
           asnyc: false,
           crossDomain: true,
           success: function (darkskyData) { 
-            console.log(darkskyData.currently.summary);
+            var temp = darkskyData.currently.temperature;
+            var longSum = darkskyData.hourly.summary;
+            Variable.shortSum = darkskyData.currently.summary;
+            var icon = darkskyData.currently.icon;
+            var skycons = new Skycons({"color": "#fff"});
+            Variable.initText.html('<canvas class="animated zoomIn" id="mainWeatherIcon" width="128" height="128"></canvas>');
+            skycons.add('mainWeatherIcon', icon);
+            var flagInit = '<div class="flag">' + '<img src="' + Variable.countryFlag + Variable.countryCode + '.svg' + '"' + '/></div>';
+            skycons.play();
+            Variable.initText.append('<h1 class="cover-location-text animated zoomIn">' + Variable.userLocation + ' ' + flagInit + '</h1>');
+            Variable.initText.append('<p class="cover-paragraph-text animated zoomIn">' + Variable.shortSum + '</p>');
+            Variable.initText.append('<p class="cover-paragraph-text animated zoomIn">' + longSum + '</p>');
+            Variable.initText.append('<p class="cover-paragraph-text animated zoomIn">' + '<span class="changeUnit">' + temp + '</span>' + ' °C' + '</p>');
+            // get photo from pexels
+              $.ajax({
+              url: 'https://api.pexels.com/v1/search?query=' + Variable.shortSum,
+              beforeSend: function (req){
+                req.setRequestHeader('Authorization', '563492ad6f9170000100000143de09da7d704c1d67462c54f4d9a25e');
+              },
+              dataType: 'JSON',
+              asnyc: false,
+              crossDomain: true,
+              success: function(pexelsData){
+                var randomPhoto = Func.getRandomPhoto(pexelsData.photos.length);
+                console.log('total photo(s) available for this weather condition: ' + pexelsData.total_results);
+                var photoUrl = pexelsData.photos[randomPhoto].src.landscape;
+                $('.cover-img').css({background: 'url(' + photoUrl +  ') no-repeat center fixed', backgroundSize: 'cover', height: '100vh'})
+                console.log(this.url);
+              },
+            });
+          
           },
           failure: function () { },
           complete: function () { }
         });
+        }
       });
-    }
+    },
+    clearInput: function() {
+      Variable.userInput.blur();
+      Variable.userInput.val('');
+      Variable.userInput.attr({placeholder:'type here to check another location', class:'userInputAfter'});
+    },
   } // end of Func
   
   // set default to off
@@ -144,8 +199,9 @@ $(document).ready(function (){
     if (event.keyCode == 13) {
       Func.loading()
       Func.getUserInputWeather();
-      var inputValue = this.value;
-      console.log('input value from keyup event listener: ' + this.value);
+      Func.clearInput();
+      
+      console.log('input value from keyup event listener: ' + Variable.userLocation);
     }
   }
 });
@@ -160,7 +216,11 @@ $(document).ready(function (){
       console.log('input value from submit button: ' + userLocation);
       Func.loading();
       Func.getUserInputWeather();
-      Func.processInputWeather();
+      Func.clearInput();
     }
+  });
+  // user want to change celcius to fahrenheit
+  $('.changeUnit').click(function() {
+    console.log('yes');
   });
 }); // document.ready
