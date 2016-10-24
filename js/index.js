@@ -148,7 +148,7 @@ $(document).ready(function (){
                 console.log('total photo(s) available for this weather condition: ' + pexelsData.total_results);
                 var photoUrl = pexelsData.photos[randomPhoto].src.landscape;
                 console.log(photoUrl);
-                $('.cover-img').css({background: 'url(' + photoUrl +  ') no-repeat center fixed', backgroundSize: 'cover', height: '95vh'})
+                $('.cover-img').css({background: 'url(' + photoUrl +  ') no-repeat center fixed', backgroundSize: 'cover', height: '95vh', padding: '0'})
                 console.log(this.url);
               },
             });
@@ -167,10 +167,9 @@ $(document).ready(function (){
     },
   } // end of Func
   // set background img
-
   initBackground();
   function initBackground() {
-    var value = ['beach', 'sunset', 'rain', 'plane', 'coffee', 'woman', 'space'];
+    var value = ['beach', 'sunset', 'rain', 'space'];
     var random = Func.getRandomPhoto(value.length);
     var randomValue = value[random];
     $.ajax({
@@ -183,11 +182,10 @@ $(document).ready(function (){
       crossDomain: true,
       success: function(data) {
         var randomPhoto = Func.getRandomPhoto(data.photos.length);
-        console.log('number of photo for: ' + randomValue + ' is: ' + data.photos.length);
+        console.log('number of photo for ' + randomValue + ' is: ' + data.photos.length);
         var photoUrl = data.photos[randomPhoto].src.landscape;
-        $('.cover-img').css({background: 'url(' + photoUrl + ') no-repeat center fixed', backgroundSize: 'cover', height: '95vh' });
+        $('.cover-img').css({background: 'url(' + photoUrl + ') no-repeat center fixed', backgroundSize: 'cover', height: '95vh', padding: '0'});
         $('.cover-img').attr('class', 'animated slideInDown cover-img container-fluid');
-
       },
   });
   };
